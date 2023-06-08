@@ -19,7 +19,7 @@ $(NAME) : $(LIBFT) $(MLX) $(OBJ)
 	$(CC) $(CFLAG) $(OBJ) $(LIBFT) -Lmlx -lm -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ) : %.o : %.c 
-	$(CC) $(CFLAG) -Ilibft -Imlx -Iinclude -c $< -o $@
+	$(CC) $(CFLAG) -Ilibft -Imlx -Iincludes -c $< -o $@
 
 $(MLX) :
 	make -C $(MLXDIR)
