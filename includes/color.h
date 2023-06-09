@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 18:09:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/09 17:03:03 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/09 17:05:50 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/09 17:07:15 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef COLOR_H
+# define COLOR_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <string.h>
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
-# include "libft.h"
-# include "mlx.h"
-
-# include "control.h"
-
-# include "object.h"
-
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 960
+int	get_color(t_color color);
 
 #endif

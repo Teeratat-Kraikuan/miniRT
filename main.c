@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/08 19:03:19 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:22:27 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,28 @@ int	key_event(int keycode, void *param)
 int main( void )
 {
     void *mlx = mlx_init();
-    void *win = mlx_new_window(mlx, 640, 360, "Tutorial Window - Draw Pixel");
+    void *win = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Tutorial Window - Draw Pixel");
 
-    mlx_pixel_put(mlx, win, 640/2, 360/2, 0xFFFFFF);
+	int			x;
+	int			y;
+	int			f;
+
+	t_color color;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
+
+	x = -1;
+	while (x++ < WIN_WIDTH - 1)
+	{
+		y = -1;
+		while (y++ < WIN_HEIGHT - 1)
+		{
+			mlx_pixel_put(mlx, win, x, y, get_color(color));
+			// img_pix_put(&fractal->img, x, y, get_color(f));
+		}
+	}
+	// mlx_put_image_to_window(mlx, win, fractal->img.img, 0, 0);
 
 	mlx_mouse_hook(win, &mouse_event, NULL);
 	mlx_key_hook(win, &key_event, NULL);

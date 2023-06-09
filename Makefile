@@ -1,10 +1,11 @@
 NAME = miniRT
 
-SRC = main.c
+SRC =	main.c \
+		srcs/color.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAG = -Wall -Wextra -Werror
+CFLAG = # -Wall -Wextra -Werror
 CC = cc
 
 MLX = $(MLXDIR)libmlx.a
