@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/09 17:22:27 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:47:18 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int close_event( void )
 {
@@ -47,7 +47,7 @@ int main( void )
 
 	t_color color;
 	color.r = 255;
-	color.g = 255;
+	color.g = 0;
 	color.b = 255;
 
 	x = -1;

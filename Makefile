@@ -1,7 +1,8 @@
 NAME = miniRT
 
 SRC =	main.c \
-		srcs/color.c
+		srcs/color.c \
+		srcs/vector.c
 
 OBJ = $(SRC:.c=.o)
 

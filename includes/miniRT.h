@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 18:09:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/09 17:03:03 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/12 20:49:05 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/12 20:49:05 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+# include <math.h>
 
 # include "libft.h"
 # include "mlx.h"
 
 # include "control.h"
 
+# include "vector.h"
 # include "object.h"
 
 # define WIN_WIDTH 1280
