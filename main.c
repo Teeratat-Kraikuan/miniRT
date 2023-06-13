@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/13 11:47:18 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:28:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ int main( void )
 
 	int			x;
 	int			y;
-	int			f;
-
-	t_color color;
-	color.r = 255;
-	color.g = 0;
-	color.b = 255;
 
 	x = -1;
 	while (x++ < WIN_WIDTH - 1)
@@ -56,7 +50,7 @@ int main( void )
 		y = -1;
 		while (y++ < WIN_HEIGHT - 1)
 		{
-			mlx_pixel_put(mlx, win, x, y, get_color(color));
+			mlx_pixel_put(mlx, win, x, y, get_color(color(128, 0, 0)));
 			// img_pix_put(&fractal->img, x, y, get_color(f));
 		}
 	}

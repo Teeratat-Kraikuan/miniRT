@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:07:28 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/12 22:49:25 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:45:47 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vect	*multi_vect(t_vect v, double c);
 double	dot_product(t_vect v, t_vect u);
 t_vect	*cross_product(t_vect v, t_vect u);
 
-double	length_vect(t_vect v);
+double	dist_vect(t_vect v);
 
 void	print_vect(t_vect v);
 

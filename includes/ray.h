@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:53:22 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/13 16:53:03 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/13 12:46:18 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/13 17:29:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef RAY_H
+# define RAY_H
 
-t_color	color(int r, int g, int b)
+# include "minirt.h"
+
+typedef struct	s_ray
 {
-	t_color color;
+	t_vect	orig;	// ray origin
+	t_vect	dir;	// ray direction
+}	t_ray;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
-}
-
-int	get_color(t_color color)
-{
-	return (color.r << 16 | color.g << 8 | color.b);
-}
+#endif

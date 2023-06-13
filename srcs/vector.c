@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:51:32 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/12 22:49:33 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:45:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_vect	*cross_product(t_vect v, t_vect u)
 	return (vect);
 }
 
-double	length_vect(t_vect v)
+double	dist_vect(t_vect v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
