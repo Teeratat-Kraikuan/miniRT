@@ -24,12 +24,27 @@
 # include "libft.h"
 # include "mlx.h"
 
+# include "minirt_mlx.h"
+
 # include "control.h"
 
 # include "vector.h"
 # include "object.h"
+# include "ray.h"
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
+# define TITLE "MINIRT"
+
+typedef struct		s_minirt
+{
+	void			*mlx;
+	void			*win;
+	t_img			img;
+	t_camera		*cam;
+	t_obj			*objs;
+}					t_minirt;
+
+t_minirt	*init_minirt();
 
 #endif

@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control.h                                          :+:      :+:    :+:   */
+/*   put_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 18:17:52 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/18 15:26:09 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/22 11:16:47 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/22 11:19:38 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTROL_H
-# define CONTROL_H
+#include "minirt.h"
 
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
-# define DOWN_ARROW 125
-# define UP_ARROW 126
-# define KEY_ESC 53
-# define KEY_Z 6
-# define KEY_X 7
+void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+	int		i;
 
-# define LEFT_CLICK 1
-# define RIGHT_CLICK 2
-# define WHEEL_UP 4
-# define WHEEL_DOWN 5
-
-int close_event( void );
-int mouse_event(int button, int x, int y, void *param);
-int	key_event(int keycode, void *param);
-
-#endif
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		if (img->endian != 0)
+			*pixel++ = (color >> i) * 0xFF;
+		else
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		i -= 8;
+	}
+}
