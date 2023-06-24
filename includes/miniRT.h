@@ -21,6 +21,8 @@
 # include <string.h>
 # include <math.h>
 
+# include "minirt_define.h"
+
 # include "libft.h"
 # include "mlx.h"
 
@@ -31,10 +33,6 @@
 # include "vector.h"
 # include "object.h"
 # include "ray.h"
-
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
-# define TITLE "MINIRT"
 
 typedef struct		s_minirt
 {
