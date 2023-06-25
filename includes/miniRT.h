@@ -30,6 +30,7 @@
 
 # include "control.h"
 
+# include "camera.h"
 # include "vector.h"
 # include "object.h"
 # include "ray.h"

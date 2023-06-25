@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/25 02:17:12 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/26 01:03:30 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,57 @@ int	per_pixel(t_minirt *minirt, double x, double y)
 
 int	ray_trace(t_minirt *minirt, t_ray ray)
 {
-	t_sphere *sphere = (t_sphere*) minirt->objs->content;
+	// t_sphere *sphere = (t_sphere*) minirt->objs->content;
 
-	double a = dot_product(ray.dir, ray.dir);
-	double b = 2 * (dot_product(ray.orig, ray.dir) -
-				ray.orig.x * sphere->center.x + ray.orig.y * sphere->center.y + ray.orig.z * sphere->center.z);
-	double c = pow(ray.orig.x - sphere->center.x, 2) + pow(ray.orig.y - sphere->center.y, 2) + pow(ray.orig.z - sphere->center.z, 2) - pow(sphere->r, 2);
-
-	// check discriminant
-	double discriminant = b * b - 4.0 * a * c;
-	if (discriminant < 0)
-		return (get_color(color(0, 0, 0)));
-
-	// (-b +- sqrt(discriminant)) / (2.0 * a)
-	double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
-	double closestT = (-b - sqrt(discriminant)) / (2.0 * a);
-
-	t_vect hit_point = add_vect(ray.orig, multi_vect(ray.dir, closestT));
-
-	t_vect normal = normalize(hit_point);
-
-	t_vect light_dir = normalize(vect(1, 1, 1));
-
-	double d = MAX(dot_product(normal, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
+	t_sphere *sphere1 = malloc(sizeof(t_sphere));
+	sphere1->center = vect(-10, 0, 20);
+	sphere1->d = 5;
+	sphere1->r = sphere1->d / 2;
+	sphere1->color = color(136, 8, 8);
 	
-	// sphere->color.r = normal.x * 0.5 + 0.5;
-	// sphere->color.g = normal.y * 0.5 + 0.5;
-	// sphere->color.b = normal.z * 0.5 + 0.5;
+	t_sphere *sphere2 = malloc(sizeof(t_sphere));
+	sphere2->center = vect(-5, 0, 10);
+	sphere2->d = 5;
+	sphere2->r = sphere2->d / 2;
+	sphere2->color = color(20, 8, 138);
 
-	sphere->color.r = 1 * d;
-	sphere->color.g = 0 * d;
-	sphere->color.b = 1 * d;
-	return (get_color(sphere->color));
+	t_sphere* spheres[2];
+	spheres[0] = sphere1;
+	spheres[1] = sphere2;
+
+	for (int i = 0; i < 2; i++)
+	{
+		t_sphere* sphere = spheres[i];
+		// ray.orig = sub_vect(ray.orig, sphere->center);
+		t_vect origin = sub_vect(ray.orig, sphere->center);
+
+		double a = dot_product(ray.dir, ray.dir);
+		double b = 2 * dot_product(origin, ray.dir);
+		double c = dot_product(origin, origin) - sphere->r * sphere->r;
+
+		// check discriminant
+		double discriminant = b * b - 4.0 * a * c;
+		if (discriminant < 0)
+			continue;
+
+		// (-b +- sqrt(discriminant)) / (2.0 * a)
+		double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
+		double closestT = (-b - sqrt(discriminant)) / (2.0 * a);
+
+		t_vect hit_point = add_vect(origin, multi_vect(ray.dir, closestT));
+
+		t_vect normal = normalize(hit_point);
+
+		t_vect light_dir = normalize(vect(1, 1, 1));
+
+		double d = MAX(dot_product(normal, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
+		t_color color;
+		color.r = sphere->color.r * d;
+		color.g = sphere->color.g * d;
+		color.b = sphere->color.b * d;
+		return (get_color(color));
+	}
+	return (get_color(color(135, 206, 235)));
 }
 
 void draw(t_minirt *minirt)
@@ -89,6 +108,7 @@ void draw(t_minirt *minirt)
 	int			y;
 	t_ray		ray;
 
+	t_sphere *sphere = (t_sphere*)minirt->objs->content;
 	x = -1;
 	while (x++ < WIN_WIDTH - 1)
 	{
@@ -96,9 +116,11 @@ void draw(t_minirt *minirt)
 		while (y++ < WIN_HEIGHT - 1)
 		{
 			// setting primary ray
-			ray.orig = minirt->cam->pos;
-			ray.dir = vect((((double) x / (double) WIN_WIDTH) * 2 - 1) * minirt->cam->aspect_ratio, ((double) y / (double) WIN_HEIGHT) * 2 - 1, 1);
-			img_pix_put(&minirt->img, x, y, ray_trace(minirt, ray));
+			// ray.orig = minirt->cam->pos;
+			// ray.dir = vect(((double) x / (double) WIN_WIDTH) * 2 - 1, ((double) y / (double) WIN_HEIGHT) * 2 - 1, 1);
+			// img_pix_put(&minirt->img, x, y, ray_trace(minirt, ray));
+
+			img_pix_put(&minirt->img, x, y, ray_trace(minirt, minirt->cam->ray[x + y * WIN_WIDTH]));
 		}
 	}
 	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->img.img, 0, 0);
@@ -109,10 +131,11 @@ void	set_camera(t_minirt *minirt)
 	t_camera	*cam;
 
 	cam = malloc(sizeof(t_camera));
-	cam->pos = vect(0, 0, -10);
+	cam->pos = vect(0, 1, 0);
 	cam->rot = vect(0, 0, 0);
-	cam->fov = 0;
+	cam->fov = 70;
 	cam->aspect_ratio = (double) WIN_WIDTH / (double) WIN_HEIGHT;
+	calculate_ray(cam);
 	minirt->cam = cam;
 }
 
@@ -121,10 +144,10 @@ void	set_object(t_minirt *minirt)
 	t_obj		*objs;
 	t_sphere	*sphere;
 
-	objs = malloc(sizeof(t_obj));
+	objs = malloc(sizeof(t_obj) * 2);
 
 	sphere = malloc(sizeof(t_sphere));
-	sphere->center = vect(0, 0, 0);
+	sphere->center = vect(10, 0, 0);
 	sphere->d = 5;
 	sphere->r = sphere->d / 2;
 	sphere->color = color(136, 8, 8);

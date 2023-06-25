@@ -5,7 +5,9 @@ SRC =	srcs/main.c		\
 		srcs/vector.c	\
 		srcs/event.c	\
 		srcs/init.c		\
-		srcs/put_pixel.c
+		srcs/put_pixel.c	\
+		srcs/camera.c		\
+		srcs/utils.c
 
 OBJ = $(SRC:.c=.o)
 
