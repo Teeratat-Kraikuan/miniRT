@@ -40,7 +40,7 @@ typedef struct		s_minirt
 	void			*mlx;
 	void			*win;
 	t_img			img;
-	t_camera		*cam;
+	t_camera		*camera;
 	t_obj			*objs;
 }					t_minirt;
 

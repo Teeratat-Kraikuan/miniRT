@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:17:52 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/18 15:26:09 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:57:11 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # define KEY_ESC 53
 # define KEY_Z 6
 # define KEY_X 7
+# define LEFT_SQUARE_BRACKETS 33
+# define RIGHT_SQUARE_BRACKETS 30
+
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_W 13
 
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 2
@@ -28,6 +35,8 @@
 
 int close_event( void );
 int mouse_event(int button, int x, int y, void *param);
-int	key_event(int keycode, void *param);
+int handle_keypress(int keycode, void *param);
+int handle_keyrelease(int keycode, void *param);
+int loop_event(void *param);
 
 #endif

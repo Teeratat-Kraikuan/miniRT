@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.c                                            :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/18 15:26:22 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/27 12:39:32 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/28 11:13:31 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef SCENE_H
+# define SCENE_H
 
-int close_event( void )
-{
-	exit(0);
-}
+# include "object.h"
 
-int mouse_event(int button, int x, int y, void *param)
+typedef struct s_al
 {
-	button = (int) button;
-	x = (int) x;
-	y = (int) y;
-	param = (void *) param;
-    printf("%d\n", button);
-	return (0);
-}
+	double	r;			// ambient lighting ratio in range [0.0,1.0]
+	t_color	color;
+}	t_al;
 
-int	key_event(int keycode, void *param)
+typedef struct s_light
 {
-	keycode = (int) keycode;
-	param = (void *) param;
-	if (keycode == KEY_ESC)
-		exit(0);
-	return (0);
-}
+	t_vect		center;
+	double		b;		// the light brightness ratio in range [0.0,1.0]
+	t_color		color;
+}	t_light;
+
+typedef	struct s_scene
+{
+	t_al	*ambient_light;
+	t_light	*lights;
+	t_obj	*objs;
+};
+
+
+#endif

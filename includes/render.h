@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 00:56:24 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/26 00:57:16 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/27 12:48:34 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/06/27 16:30:46 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#ifndef RENDER_H
+# define RENDER_H
 
-double to_radian(double degree)
-{
-	return (degree * M_PI / 180);
-}
+# include "minirt.h"
+
+void draw(t_minirt *minirt);
+
+#endif

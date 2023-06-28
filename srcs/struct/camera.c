@@ -6,22 +6,17 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:34:16 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/26 01:00:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:13:01 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math.h"
 #include "camera.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "utils.h"
 
-t_ray	*resize_ray()
+void	resize_ray(t_ray **ray)
 {
-	t_ray	*ray;
-
-	ray = malloc(sizeof(t_ray) * WIN_HEIGHT * WIN_WIDTH);
-	return (ray);
+	if (*ray != NULL)
+		free(*ray);
+	*ray = malloc(sizeof(t_ray) * WIN_HEIGHT * WIN_WIDTH);
 }
 
 double calculate_z(double fov)
@@ -38,7 +33,7 @@ void	calculate_ray(t_camera *camera)
 	double	xx;
 	double	yy;
 
-	camera->ray = resize_ray();
+	// resize_ray(&camera->ray);
 	z = calculate_z(camera->fov);
 	y = 0;
 	while (y < WIN_HEIGHT)
@@ -60,4 +55,17 @@ void	calculate_ray(t_camera *camera)
 		}
 		y++;
 	}
+}
+
+void	camera_update(t_camera *camera)
+{
+	
+}
+
+void	free_camera(t_camera *camera)
+{
+	if (camera->ray != NULL)
+		free(camera->ray);
+	if (camera != NULL)
+		free(camera);
 }

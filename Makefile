@@ -1,13 +1,14 @@
 NAME = miniRT
 
 SRC =	srcs/main.c		\
-		srcs/color.c	\
-		srcs/vector.c	\
-		srcs/event.c	\
-		srcs/init.c		\
-		srcs/put_pixel.c	\
-		srcs/camera.c		\
-		srcs/utils.c
+		srcs/struct/camera.c		\
+		srcs/struct/color.c			\
+		srcs/struct/init.c			\
+		srcs/rendering/render.c		\
+		srcs/handler/event.c		\
+		srcs/vector/vector.c		\
+		srcs/utils/utils.c			\
+		srcs/utils/put_pixel.c
 
 OBJ = $(SRC:.c=.o)
 
