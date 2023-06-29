@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:34:16 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/28 12:13:01 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:53:15 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,19 @@ void	calculate_ray(t_camera *camera)
 		while (x < WIN_WIDTH)
 		{
 			xx = (double) x / (double) WIN_WIDTH * 2.0 - 1.0;
-			yy = (double) y / (double) WIN_HEIGHT * 2.0 - 1.0;
+			yy = - ((double) y / (double) WIN_HEIGHT * 2.0 - 1.0);
 
 			xx *= camera->aspect_ratio;
 
 			ray.orig = camera->pos;
 
-			ray.dir = vect(xx, yy, z);
+			ray.dir = vect(xx, yy, -z);
 			
 			camera->ray[x + y * WIN_WIDTH] = ray;
 			x++;
 		}
 		y++;
 	}
-}
-
-void	camera_update(t_camera *camera)
-{
-	
 }
 
 void	free_camera(t_camera *camera)

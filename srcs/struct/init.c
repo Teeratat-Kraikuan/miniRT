@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 20:55:02 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/27 12:32:54 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/29 23:22:16 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_minirt	*init_minirt()
 	minirt->img.addr = mlx_get_data_addr(
 			minirt->img.img, &minirt->img.bpp,
 			&minirt->img.line_len, &minirt->img.endian);
-	minirt->camera = NULL;
+	minirt->cam = NULL;
 	minirt->objs = NULL;
 	return (minirt);
 }

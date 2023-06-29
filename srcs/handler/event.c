@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/28 21:55:22 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/29 23:21:41 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,42 @@
 
 int i = 0;
 
-int close_event( void )
+int close_event(void *param )
 {
+	t_minirt	*minirt;
+	t_camera	*cam;
+	t_obj		*objs;
+	t_obj		*tmp_obj;
+
+	minirt = (t_minirt*) param;
+	cam = minirt->cam;
+	objs = minirt->objs;
+	free(cam->ray);
+	free(cam);
+	while (objs)
+	{
+		tmp_obj = objs->next;
+		free(objs->content);
+		free(objs);
+		objs = tmp_obj;
+	}
+	// mlx_destroy_image(minirt->mlx, minirt->img.img);
+	// mlx_destroy_window(minirt->mlx, minirt->win);
+	// free(minirt->mlx);
+	free(minirt);
 	exit(0);
+	// return (0);
 }
 
-int mouse_event(int button, int x, int y, void *param)
-{
-	button = (int) button;
-	x = (int) x;
-	y = (int) y;
-	param = (void *) param;
-    printf("%d\n", button);
-	return (0);
-}
+// int mouse_event(int button, int x, int y, void *param)
+// {
+// 	button = (int) button;
+// 	x = (int) x;
+// 	y = (int) y;
+// 	param = (void *) param;
+//     printf("%d\n", button);
+// 	return (0);
+// }
 
 // int	key_event(int keycode, void *param)
 // {
@@ -54,17 +76,21 @@ int handle_keypress(int keycode, void *param)
 	minirt = (t_minirt*) param;
 	// printf("keypresed -> %d\n", keycode);
 	if (keycode == LEFT_SQUARE_BRACKETS)
-		minirt->camera->fov -= 1;
+		minirt->cam->fov -= 1;
 	else if (keycode == RIGHT_SQUARE_BRACKETS)
-		minirt->camera->fov += 1;
+		minirt->cam->fov += 1;
 	else if (keycode == KEY_A)
-		minirt->camera->pos.x -= 0.1;
+		minirt->cam->pos.x -= 0.5;
 	else if (keycode == KEY_S)
-		minirt->camera->pos.z -= 0.1;
+		minirt->cam->pos.z += 0.5;
 	else if (keycode == KEY_D)
-		minirt->camera->pos.x += 0.1;
+		minirt->cam->pos.x += 0.5;
 	else if (keycode == KEY_W)
-		minirt->camera->pos.z += 0.1;
+		minirt->cam->pos.z -= 0.5;
+	else if (keycode == KEY_Q)
+		minirt->cam->pos.y -= 0.5;
+	else if (keycode == KEY_E)
+		minirt->cam->pos.y += 0.5;
 	return (0);
 }
 
@@ -81,7 +107,7 @@ int loop_event(void *param)
 	t_minirt *minirt;
 
 	minirt = (t_minirt*) param;
-	calculate_ray(minirt->camera);
+	calculate_ray(minirt->cam);
 	draw(minirt);
 	// printf("%d\n", i++);
 	// printf("fov = %lf\n", minirt->camera->fov);

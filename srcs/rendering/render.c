@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/28 21:54:45 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/29 22:17:23 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ int	ray_trace(t_minirt *minirt, t_ray ray)
 		// (-b +- sqrt(discriminant)) / (2.0 * a)
 		double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
 		double closestT = (-b - sqrt(discriminant)) / (2.0 * a);
+		if (t0 < 0 && closestT < 0)
+		{
+			objs = objs->next;
+			continue;
+		}
 		// printf("%lf\n", closestT);
 		if (closestT < hit_distance)
 		{
@@ -102,7 +107,7 @@ int	ray_trace(t_minirt *minirt, t_ray ray)
 
 	t_vect normal = normalize(hit_point);
 
-	t_vect light_dir = normalize(vect(1, 1, 1));
+	t_vect light_dir = normalize(vect(-1, -1, -1));
 
 	double d = MAX(dot_product(normal, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
 	t_color color;
@@ -116,9 +121,9 @@ void draw(t_minirt *minirt)
 {
 	int			x;
 	int			y;
-	t_ray		ray;
+	// t_ray		ray;
 
-	t_sphere *sphere = (t_sphere*)minirt->objs->content;
+	// t_sphere *sphere = (t_sphere*)minirt->objs->content;
 	x = -1;
 	while (x++ < WIN_WIDTH - 1)
 	{
@@ -130,7 +135,7 @@ void draw(t_minirt *minirt)
 			// ray.dir = vect(((double) x / (double) WIN_WIDTH) * 2 - 1, ((double) y / (double) WIN_HEIGHT) * 2 - 1, 1);
 			// img_pix_put(&minirt->img, x, y, ray_trace(minirt, ray));
 
-			img_pix_put(&minirt->img, x, y, ray_trace(minirt, minirt->camera->ray[x + y * WIN_WIDTH]));
+			img_pix_put(&minirt->img, x, y, ray_trace(minirt, minirt->cam->ray[x + y * WIN_WIDTH]));
 			// img_pix_put(&minirt->img, x, y, get_color(color(135, 206, 235)));
 		}
 	}
