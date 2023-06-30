@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/29 23:23:15 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 01:23:43 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ int main( int ac, char **av )
 	}
 	get_all(av[1], minirt);
 	printf("Running Program\n"); // dbug
+
+	minirt->cam->rot = normalize(minirt->cam->rot);
+	minirt->cam->right = cross_product(minirt->cam->rot, vect(0, 1, 0));
+	minirt->cam->up = cross_product(minirt->cam->right, minirt->cam->rot);
 
 	// minirt = init_minirt();
 

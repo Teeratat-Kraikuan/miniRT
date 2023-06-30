@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:21:20 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/27 01:54:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 01:23:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,24 @@ typedef struct s_camera
 	double			fov;	// FOV : Horizontal field of view in degrees in range [0,180]
 	double			aspect_ratio;
 	t_ray			*ray;
+	t_vect			right;
+	t_vect			up;
 }	t_camera;
 
 void	calculate_ray(t_camera *camera);
+
+// moving
+void	move_forward(t_camera *camera, int speed);
+void	move_backward(t_camera *camera, int speed);
+void	move_left(t_camera *camera, int speed);
+void	move_right(t_camera *camera, int speed);
+void	move_up(t_camera *camera, int speed);
+void	move_down(t_camera *camera, int speed);
+
+// rotate
+void	pitch_cw(t_camera *camera, double speed);
+void	pitch_ccw(t_camera *camera, double speed);
+void	roll_cw(t_camera *camera, double speed);
+void	roll_ccw(t_camera *camera, double speed);
 
 #endif

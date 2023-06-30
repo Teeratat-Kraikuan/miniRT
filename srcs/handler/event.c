@@ -6,12 +6,13 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/29 23:21:41 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 01:23:46 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "render.h"
+#include "camera.h"
 
 int i = 0;
 
@@ -74,23 +75,31 @@ int handle_keypress(int keycode, void *param)
 	t_minirt	*minirt;
 
 	minirt = (t_minirt*) param;
-	// printf("keypresed -> %d\n", keycode);
+	printf("keypresed -> %d\n", keycode);
 	if (keycode == LEFT_SQUARE_BRACKETS)
 		minirt->cam->fov -= 1;
 	else if (keycode == RIGHT_SQUARE_BRACKETS)
 		minirt->cam->fov += 1;
 	else if (keycode == KEY_A)
-		minirt->cam->pos.x -= 0.5;
+		move_left(minirt->cam, 1);
 	else if (keycode == KEY_S)
-		minirt->cam->pos.z += 0.5;
+		move_backward(minirt->cam, 1);
 	else if (keycode == KEY_D)
-		minirt->cam->pos.x += 0.5;
+		move_right(minirt->cam, 1);
 	else if (keycode == KEY_W)
-		minirt->cam->pos.z -= 0.5;
+		move_forward(minirt->cam, 1);
 	else if (keycode == KEY_Q)
-		minirt->cam->pos.y -= 0.5;
+		move_down(minirt->cam, 1);
 	else if (keycode == KEY_E)
-		minirt->cam->pos.y += 0.5;
+		move_up(minirt->cam, 1);
+	else if (keycode == LEFT_ARROW)
+		pitch_cw(minirt->cam, 0.02);
+	else if (keycode == RIGHT_ARROW)
+		pitch_ccw(minirt->cam, 0.02);
+	else if (keycode == UP_ARROW)
+		roll_cw(minirt->cam, 0.02);
+	else if (keycode == DOWN_ARROW)
+		roll_ccw(minirt->cam, 0.02);
 	return (0);
 }
 
@@ -107,10 +116,13 @@ int loop_event(void *param)
 	t_minirt *minirt;
 
 	minirt = (t_minirt*) param;
+	// minirt->cam->rot = normalize(minirt->cam->rot);
+	// minirt->cam->right = cross_product(vect(0, 1, 0), minirt->cam->rot);
+	// minirt->cam->up = cross_product(minirt->cam->rot, minirt->cam->right);
 	calculate_ray(minirt->cam);
 	draw(minirt);
 	// printf("%d\n", i++);
 	// printf("fov = %lf\n", minirt->camera->fov);
-	// printf("camera position = (%lf, %lf, %lf)\n", minirt->camera->pos.x, minirt->camera->pos.y, minirt->camera->pos.z);
+	printf("camera position = (%lf, %lf, %lf)\n", minirt->cam->pos.x, minirt->cam->pos.y, minirt->cam->pos.z);
 	return (0);
 }
