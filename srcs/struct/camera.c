@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:34:16 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/01 01:23:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 23:14:45 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	calculate_ray(t_camera *camera)
 			xx *= camera->aspect_ratio;
 
 			ray.orig = camera->pos;
+			if (camera->rot.x == 0 && camera->rot.y == 1 && camera->rot.z == 0)
+				ray.dir = vect(xx, -z, yy);
 			ray.dir = add_vect( add_vect( multi_vect(camera->right, xx) , multi_vect(camera->up, yy)), multi_vect(camera->rot, z) );
 			// ray.dir = vect(xx, yy, -z);
 			
@@ -64,6 +66,8 @@ void	free_camera(t_camera *camera)
 	if (camera != NULL)
 		free(camera);
 }
+
+// movement
 
 void	move_forward(t_camera *camera, int speed)
 {
@@ -94,6 +98,8 @@ void	move_down(t_camera *camera, int speed)
 {
 	camera->pos = sub_vect(camera->pos, camera->up);
 }
+
+// rotate
 
 t_vect	rotate_vector(t_vect vector, t_vect axis, double theta)
 {

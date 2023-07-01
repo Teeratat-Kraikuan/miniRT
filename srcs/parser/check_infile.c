@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 00:00:45 by csantivi          #+#    #+#             */
-/*   Updated: 2023/06/29 23:30:36 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:55:51 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,25 @@ char	*ignore_comment(char *line)
 	return (new);
 }
 
-int	check_object(char **data, int *cam)
+int	check_object(char **data, t_obj_count *counter)
 {
 	if (same_str(data[0], "C"))
-	{
-		*cam += 1;
-		return (check_camera(data));
-	}
+		return (check_camera(data, counter));
+	else if (same_str(data[0], "A"))
+		return (check_ambient(data, counter));
+	else if (same_str(data[0], "L"))
+		return (check_light(data, counter));
 	else if (same_str(data[0], "sp"))
-		return (check_sphere(data));
+		return (check_sphere(data, counter));
+	else if (same_str(data[0], "pl"))
+		return (check_plane(data, counter));
+	else if (same_str(data[0], "cy"))
+		return (check_cylinder(data, counter));
 	else
 		return (error_unknow_var(data[0]));
 }
 
-int	check_line(char *line, int *cam)
+int	check_line(char *line, t_obj_count *counter)
 {
 	char	*new_line;
 	char	**data;
@@ -52,7 +57,7 @@ int	check_line(char *line, int *cam)
 	else
 		data = ft_split_white(line);
 	if (data && data[0])
-		error_status = check_object(data, cam);
+		error_status = check_object(data, counter);
 	free_2d(data);
 	return (error_status);
 }

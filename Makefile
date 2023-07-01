@@ -9,22 +9,24 @@ SRC =	srcs/main.c		\
 		srcs/vector/vector.c		\
 		srcs/utils/utils.c			\
 		srcs/utils/put_pixel.c		\
-		srcs/lexer/error_message.c	\
-		srcs/lexer/check_file.c		\
-		srcs/lexer/check_infile.c	\
-		srcs/lexer/check_object.c	\
-		srcs/lexer/get_infile.c		\
-		srcs/lexer/get_variable.c	\
-		srcs/lexer/get_object.c		\
-		srcs/lexer/good_number.c		\
-		srcs/lexer/good_variable.c	\
-		srcs/lexer/get_next_line.c	\
-		srcs/lexer/get_next_line_utils.c	\
-		srcs/lexer/ft_split_white.c	\
-		srcs/lexer/ft_atof.c			\
-		srcs/lexer/lexer_until.c		\
-		srcs/lexer/objs_manager.c	\
-		srcs/lexer/free.c
+		srcs/parser/error_message_1.c	\
+		srcs/parser/error_message_2.c	\
+		srcs/parser/check_file.c		\
+		srcs/parser/check_infile.c	\
+		srcs/parser/check_object_1.c	\
+		srcs/parser/check_object_2.c	\
+		srcs/parser/get_infile.c		\
+		srcs/parser/get_variable.c	\
+		srcs/parser/get_object.c		\
+		srcs/parser/good_number.c		\
+		srcs/parser/good_variable.c	\
+		srcs/parser/get_next_line.c	\
+		srcs/parser/get_next_line_utils.c	\
+		srcs/parser/ft_split_white.c	\
+		srcs/parser/ft_atof.c			\
+		srcs/parser/parser_until.c		\
+		srcs/parser/objs_manager.c	\
+		srcs/parser/free.c
 
 OBJ = $(SRC:.c=.o)
 

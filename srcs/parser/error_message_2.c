@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   error_message_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 17:05:50 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 00:27:55 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/06/30 23:11:18 by csantivi          #+#    #+#             */
+/*   Updated: 2023/06/30 23:29:00 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "minirt.h"
 
-typedef struct s_color
+int	error_args_count(char **data, int expect_num)
 {
-	double	r;
-	double	g;
-	double	b;
-}	t_color;
-
-t_color	color(int r, int g, int b);
-
-int	get_color(t_color color);
-
-#endif
+	if (args_count(data) != expect_num)
+	{
+		ft_putstr_fd(": Wrong number of args, it should be ", 2);
+		ft_putnbr_fd(expect_num, 2);
+		return (0);
+	}
+	return (1);
+}

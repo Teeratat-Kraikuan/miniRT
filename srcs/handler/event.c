@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/01 01:23:46 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 12:12:00 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int handle_keypress(int keycode, void *param)
 	t_minirt	*minirt;
 
 	minirt = (t_minirt*) param;
-	printf("keypresed -> %d\n", keycode);
+	// printf("keypresed -> %d\n", keycode);
 	if (keycode == LEFT_SQUARE_BRACKETS)
 		minirt->cam->fov -= 1;
 	else if (keycode == RIGHT_SQUARE_BRACKETS)
@@ -122,7 +122,9 @@ int loop_event(void *param)
 	calculate_ray(minirt->cam);
 	draw(minirt);
 	// printf("%d\n", i++);
-	// printf("fov = %lf\n", minirt->camera->fov);
+	// printf("fov = %lf\n", minirt->cam->fov);
 	printf("camera position = (%lf, %lf, %lf)\n", minirt->cam->pos.x, minirt->cam->pos.y, minirt->cam->pos.z);
+	printf("camera forward ->");
+	print_vect(minirt->cam->rot);
 	return (0);
 }

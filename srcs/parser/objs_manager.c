@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   objs_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:53:17 by csantivi          #+#    #+#             */
-/*   Updated: 2023/06/29 22:17:00 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:35:48 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	init_object_count(t_obj_count *counter)
+{
+	counter->camera = 0;
+	counter->ambient = 0;
+	counter->light = 0;
+	counter->sphere = 0;
+	counter->plane = 0;
+	counter->cylinder = 0;
+}
 
 t_obj	*lst_objs_last(t_obj *objs)
 {
@@ -21,17 +31,17 @@ t_obj	*lst_objs_last(t_obj *objs)
 	return (objs);
 }
 
-void	lst_objs_addback(t_obj **objs, t_obj *new)
+void	lst_objs_addback(t_obj **objs, t_obj *new_obj)
 {
 	t_obj	*last;
 
-	if (!objs || !new)
+	if (!objs || !new_obj)
 		return ;
 	if (*objs)
 	{
 		last = lst_objs_last(*objs);
-		last->next = new;
+		last->next = new_obj;
 	}
 	else
-		*objs = new;
+		*objs = new_obj;
 }

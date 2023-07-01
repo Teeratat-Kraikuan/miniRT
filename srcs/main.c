@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/01 01:23:43 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/01 23:07:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int main( int ac, char **av )
 	minirt->cam->rot = normalize(minirt->cam->rot);
 	minirt->cam->right = cross_product(minirt->cam->rot, vect(0, 1, 0));
 	minirt->cam->up = cross_product(minirt->cam->right, minirt->cam->rot);
+
+	// minirt->cam->rot = vect(0, 1, 0);
+	// minirt->cam->right = vect(1, 0, 0);
+	// minirt->cam->up = vect(0, 0, -1);
 
 	// minirt = init_minirt();
 

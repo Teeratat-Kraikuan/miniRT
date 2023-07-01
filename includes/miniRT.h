@@ -47,6 +47,6 @@ typedef struct		s_minirt
 t_minirt	*init_minirt();
 
 # include "control.h"
-# include "lexer.h"
+# include "parser.h"
 
 #endif
