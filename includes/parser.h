@@ -6,13 +6,15 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:18 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/02 00:20:20 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/02 01:27:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef PARSER_H
+# define PARSER_H
+
 # include "minirt.h"
+# include "get_next_line.h"
 
 char	**ft_split_white(char *s);
 void	free_2d(char **data);
@@ -52,7 +54,7 @@ int		check_line(char *line, t_obj_count *counter);
 int		check_all(char *name);
 
 int     get_coordinate(char **input, t_vect *pos);
-int 	get_color_input(char **input, t_color *color);
+int 	get_color_input(char **input, t_vect *color);
 int 	get_integer(char *num, int *des);
 int     get_double(char *num, double *des);
 

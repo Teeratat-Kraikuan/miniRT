@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   minirt_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 13:53:22 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 00:32:28 by tkraikua         ###   ########.fr       */
+/*   Created: 2023/07/02 01:04:00 by tkraikua          #+#    #+#             */
+/*   Updated: 2023/07/02 01:07:26 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MINIRT_STRUCT_H
+# define MINIRT_STRUCT_H
 
-t_vect	color(int r, int g, int b)
+# include "minirt_mlx.h"
+# include "camera.h"
+# include "scene.h"
+
+typedef struct		s_minirt
 {
-	t_vect color;
+	void			*mlx;
+	void			*win;
+	t_img			img;
+	t_camera		*cam;
+	// t_scene			*scene;
+	t_obj			*objs;
+}					t_minirt;
 
-	color.x = r / 255.0;
-	color.y = g / 255.0;
-	color.z = b / 255.0;
-	return (color);
-}
+t_minirt	*init_minirt();
 
-int	get_color(t_vect color)
-{
-	int r;
-	int g;
-	int b;
-
-	r = (int)(color.x * 255.0);
-	g = (int)(color.y * 255.0);
-	b = (int)(color.z * 255.0);
-	return (r << 16 | g << 8 | b);
-}
+#endif

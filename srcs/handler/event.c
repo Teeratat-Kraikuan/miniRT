@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/01 12:12:00 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/02 01:23:07 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ int loop_event(void *param)
 	// printf("fov = %lf\n", minirt->cam->fov);
 	printf("camera position = (%lf, %lf, %lf)\n", minirt->cam->pos.x, minirt->cam->pos.y, minirt->cam->pos.z);
 	printf("camera forward ->");
-	print_vect(minirt->cam->rot);
+	print_vect(minirt->cam->forward);
 	return (0);
 }

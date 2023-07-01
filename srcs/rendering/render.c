@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/06/29 22:17:23 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/02 01:21:55 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ int	ray_trace(t_minirt *minirt, t_ray ray)
 	t_vect light_dir = normalize(vect(-1, -1, -1));
 
 	double d = MAX(dot_product(normal, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
-	t_color color;
-	color.r = closest_sphere->color.r * d;
-	color.g = closest_sphere->color.g * d;
-	color.b = closest_sphere->color.b * d;
+	t_vect color;
+	color.x = closest_sphere->color.x * d;
+	color.y = closest_sphere->color.y * d;
+	color.z = closest_sphere->color.z * d;
 	return (get_color(color));
 }
 

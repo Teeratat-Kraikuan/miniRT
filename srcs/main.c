@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/01 23:07:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/02 01:24:51 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_camera(t_minirt *minirt)
 
 	cam = malloc(sizeof(t_camera));
 	cam->pos = vect(0, 0, 0);
-	cam->rot = vect(0, 0, 0);
+	cam->forward = vect(0, 0, 0);
 	cam->fov = 70;
 	cam->aspect_ratio = (double) WIN_WIDTH / (double) WIN_HEIGHT;
 	cam->ray = malloc(sizeof(t_ray) * WIN_HEIGHT * WIN_WIDTH);
@@ -78,9 +78,9 @@ int main( int ac, char **av )
 	get_all(av[1], minirt);
 	printf("Running Program\n"); // dbug
 
-	minirt->cam->rot = normalize(minirt->cam->rot);
-	minirt->cam->right = cross_product(minirt->cam->rot, vect(0, 1, 0));
-	minirt->cam->up = cross_product(minirt->cam->right, minirt->cam->rot);
+	minirt->cam->forward = normalize(minirt->cam->forward);
+	minirt->cam->right = cross_product(minirt->cam->forward, vect(0, 1, 0));
+	minirt->cam->up = cross_product(minirt->cam->right, minirt->cam->forward);
 
 	// minirt->cam->rot = vect(0, 1, 0);
 	// minirt->cam->right = vect(1, 0, 0);
