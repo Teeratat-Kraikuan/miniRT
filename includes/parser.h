@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:18 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/02 01:27:09 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/05 22:49:57 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ void	get_object(char **data, t_minirt *minirt);
 void	get_all(char *name, t_minirt *minirt);
 
 void	get_camera(char **data, t_minirt *minirt);
+void	get_ambient(char **data, t_minirt *minirt);
+void	get_light(char **data, t_minirt *minirt);
+
 void	get_sphere(char **data, t_minirt *minirt);
+void	get_plane(char **data, t_minirt *minirt);
+void	get_cylinder(char **data, t_minirt *minirt);
 
 int 	error_unknow_var(char *str);
 void	error_line(char *name, int line);

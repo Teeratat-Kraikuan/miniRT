@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/08 19:56:56 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/09 00:31:55 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ t_payload	ray_trace(t_camera *camera, t_scene *scene, t_ray ray)
 
 t_vect reflect(t_vect incident, t_vect norm)
 {
-	return (sub_vect(incident, multi_vect(incident,  2.0 * dot_product(incident, norm))));
+	return (sub_vect(incident, multi_vect(norm,  2.0 * dot_product(incident, norm))));
 }
 
 t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
@@ -159,7 +159,7 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 	ray = camera->ray[x + y * WIN_WIDTH];
 	double multiplier = 1.0;
 	
-	int bounces = 2;
+	int bounces = 3;
 	for (int i = 0; i < bounces; i++)
 	{
 		payload = ray_trace(camera, scene, ray);
@@ -175,14 +175,15 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 		t_vect light_dir = normalize(vect(-1, -1, -1));
 		double lightIntensity = MAX(dot_product(payload.world_norm, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
 		
-		t_vect obj_color = ((t_sphere*)payload.obj->content)->color;
-		obj_color = multi_vect(obj_color, lightIntensity);
+		// t_vect obj_color = ((t_sphere*)payload.obj->content)->color;
+		// obj_color = multi_vect(obj_color, lightIntensity);
 		// c = multi_vect(((t_sphere*)payload.obj->content)->color, lightIntensity);
-		c = add_vect(c, multi_vect(obj_color, multiplier));
+		// c = add_vect(c, multi_vect(obj_color, multiplier));
 		
-		multiplier *= 0.09;
+		multiplier *= 0.7;
 
 		ray.orig = multi_vect(add_vect(payload.world_pos, payload.world_norm), 0.0001);
+		// ray.orig = payload.world_pos;
 		ray.dir = reflect(ray.orig, payload.world_norm);
 	}
 	return (c);

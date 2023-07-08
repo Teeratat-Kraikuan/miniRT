@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:39:32 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 01:25:30 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/08 23:38:57 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_light
 typedef	struct s_scene
 {
 	t_al	*ambient_light;
-	t_list	*lights;
+	t_light	*lights;
 	t_obj	*objs;
 }	t_scene;
 
