@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 13:42:53 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 01:24:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:34:09 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,13 @@ int main( int ac, char **av )
 	get_all(av[1], minirt);
 	printf("Running Program\n"); // dbug
 
+	minirt->scene = malloc(sizeof(t_scene));
+	minirt->scene->objs = minirt->objs;
+
 	minirt->cam->forward = normalize(minirt->cam->forward);
 	minirt->cam->right = cross_product(minirt->cam->forward, vect(0, 1, 0));
 	minirt->cam->up = cross_product(minirt->cam->right, minirt->cam->forward);
+
 
 	// minirt->cam->rot = vect(0, 1, 0);
 	// minirt->cam->right = vect(1, 0, 0);

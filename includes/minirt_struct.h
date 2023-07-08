@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:04:00 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 01:07:26 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:31:06 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct		s_minirt
 	void			*win;
 	t_img			img;
 	t_camera		*cam;
-	// t_scene			*scene;
+	t_scene			*scene;
 	t_obj			*objs;
 }					t_minirt;
 

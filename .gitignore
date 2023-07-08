@@ -3,3 +3,4 @@
 miniRT
 .DS_Store
 .vscode
+*.dSYM
