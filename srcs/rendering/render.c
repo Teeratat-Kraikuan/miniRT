@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/08 18:03:51 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/08 19:56:56 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,15 @@ t_payload	ray_trace(t_camera *camera, t_scene *scene, t_ray ray)
 		}
 
 		// (-b +- sqrt(discriminant)) / (2.0 * a)
-		double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
+		// double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
 		double closestT = (-b - sqrt(discriminant)) / (2.0 * a);
-		if (t0 < 0 && closestT < 0)
-		{
-			objs = objs->next;
-			continue;
-		}
+		// if (t0 < 0 && closestT < 0)
+		// {
+		// 	objs = objs->next;
+		// 	continue;
+		// }
 		// printf("%lf\n", closestT);
-		if (closestT < hit_distance)
+		if (closestT > 0 && closestT < hit_distance)
 		{
 			hit_distance = closestT;
 			closest_obj = objs;
@@ -145,6 +145,11 @@ t_payload	ray_trace(t_camera *camera, t_scene *scene, t_ray ray)
 	return (closest_hit(ray, hit_distance, closest_obj));
 }
 
+t_vect reflect(t_vect incident, t_vect norm)
+{
+	return (sub_vect(incident, multi_vect(incident,  2.0 * dot_product(incident, norm))));
+}
+
 t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 {
 	t_vect		c = color(0, 0, 0);
@@ -153,24 +158,32 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 
 	ray = camera->ray[x + y * WIN_WIDTH];
 	double multiplier = 1.0;
-	int bounces = 5;
+	
+	int bounces = 2;
 	for (int i = 0; i < bounces; i++)
 	{
 		payload = ray_trace(camera, scene, ray);
 		if (payload.hit_distance < 0){
-			// t_vect sky_color = color(135, 206, 235);
-			t_vect sky_color = color(0, 0, 0);
+			t_vect sky_color = color(135, 206, 235);
+			// t_vect sky_color = color(0, 0, 0);
 			// c = sky_color;
 			c = add_vect(c, multi_vect(sky_color, multiplier));
 			break;
+			// return sky_color;
 		}
 
 		t_vect light_dir = normalize(vect(-1, -1, -1));
 		double lightIntensity = MAX(dot_product(payload.world_norm, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
 		
-		c = multi_vect(((t_sphere*)payload.obj->content)->color, lightIntensity);
-		c = add_vect(c, multi_vect(c, multiplier));
-		multiplier *= 7.0;
+		t_vect obj_color = ((t_sphere*)payload.obj->content)->color;
+		obj_color = multi_vect(obj_color, lightIntensity);
+		// c = multi_vect(((t_sphere*)payload.obj->content)->color, lightIntensity);
+		c = add_vect(c, multi_vect(obj_color, multiplier));
+		
+		multiplier *= 0.09;
+
+		ray.orig = multi_vect(add_vect(payload.world_pos, payload.world_norm), 0.0001);
+		ray.dir = reflect(ray.orig, payload.world_norm);
 	}
 	return (c);
 }
