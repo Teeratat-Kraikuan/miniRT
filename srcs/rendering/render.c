@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/10 13:11:40 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:06:12 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_payload	closest_hit(t_ray ray, double hit_distance, t_obj *obj)
 	payload.world_pos = add_vect(origin, multi_vect(ray.dir, hit_distance));
 	payload.world_norm = normalize(payload.world_pos);
 	payload.world_pos = add_vect(payload.world_pos, closest_sphere->center);
+	// payload.world_norm = normalize(sub_vect(payload.world_pos, closest_sphere->center));
 	return (payload);
 }
 
@@ -125,6 +126,8 @@ t_payload	ray_trace(t_camera *camera, t_scene *scene, t_ray ray)
 		// (-b +- sqrt(discriminant)) / (2.0 * a)
 		// double t0 = (-b + sqrt(discriminant)) / (2.0 * a);
 		double closestT = (-b - sqrt(discriminant)) / (2.0 * a);
+		if (closestT < 0)
+			closestT = (-b + sqrt(discriminant)) / (2.0 * a);
 		// if (t0 < 0 && closestT < 0)
 		// {
 		// 	objs = objs->next;
@@ -164,8 +167,8 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 	{
 		payload = ray_trace(camera, scene, ray);
 		if (payload.hit_distance < 0){
-			t_vect sky_color = color(135, 206, 235);
-			// t_vect sky_color = color(0, 0, 0);
+			// t_vect sky_color = color(135, 206, 235);
+			t_vect sky_color = color(0, 0, 0);
 			// c = sky_color;
 			c = add_vect(c, multi_vect(sky_color, multiplier));
 			break;
@@ -182,9 +185,9 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 		
 		multiplier *= 0.7;
 
-		ray.orig = multi_vect(add_vect(payload.world_pos, payload.world_norm), 0.0001);
+		ray.orig = add_vect(payload.world_pos, multi_vect(payload.world_norm, 0.0001));
 		// ray.orig = payload.world_pos;
-		ray.dir = reflect(ray.orig, payload.world_norm);
+		ray.dir = reflect(ray.dir, payload.world_norm);
 	}
 	return (c);
 }
