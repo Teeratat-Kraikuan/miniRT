@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/10 16:06:12 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:16:52 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 	ray = camera->ray[x + y * WIN_WIDTH];
 	double multiplier = 1.0;
 	
-	int bounces = 3;
+	int bounces = 2;
 	for (int i = 0; i < bounces; i++)
 	{
 		payload = ray_trace(camera, scene, ray);
