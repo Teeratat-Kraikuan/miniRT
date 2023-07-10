@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/09 00:31:55 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:11:40 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,10 @@ t_vect	per_pixel(t_camera *camera, t_scene *scene, int x, int y)
 		t_vect light_dir = normalize(vect(-1, -1, -1));
 		double lightIntensity = MAX(dot_product(payload.world_norm, multi_vect(light_dir, -1)), 0.0); // = cos(angle)
 		
-		// t_vect obj_color = ((t_sphere*)payload.obj->content)->color;
-		// obj_color = multi_vect(obj_color, lightIntensity);
+		t_vect obj_color = ((t_sphere*)payload.obj->content)->color;
+		obj_color = multi_vect(obj_color, lightIntensity);
 		// c = multi_vect(((t_sphere*)payload.obj->content)->color, lightIntensity);
-		// c = add_vect(c, multi_vect(obj_color, multiplier));
+		c = add_vect(c, multi_vect(obj_color, multiplier));
 		
 		multiplier *= 0.7;
 
