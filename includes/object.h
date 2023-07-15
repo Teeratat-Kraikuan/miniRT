@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:44:11 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 00:53:23 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/15 13:39:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_vect		center;
+	t_vect		top;
+	t_vect		bottom;
 	t_vect		dir;	// 3d normalized vector of axis of cylinder. In range [-1,1] for each x,y,z axis
 	double		d;		// the cylinder diameter
+	double		r;
 	double		h;		// the cylinder height
 	t_vect		color;
 }	t_cylinder;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:47:35 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/15 01:10:45 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:45:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ t_payload	closest_hit(t_ray ray, double hit_distance, t_obj *obj)
 	return (payload);
 }
 
+void	closest_hit_cylinder(t_ray ray, double hit_distance, t_cylinder *cy, t_payload *payload)
+{
+	t_vect	origin = sub_vect(ray.orig, cy->center);
+	// t_vect	origin = ray.orig;
+	payload->world_pos = add_vect(origin, multi_vect(ray.dir, hit_distance));
+	// payload->world_norm = multi_vect(ray.dir, -1);
+	payload->world_pos = add_vect(payload->world_pos, cy->center);
+
+	double t = dot_product((sub_vect(payload->world_pos, cy->center)), normalize(cy->dir));
+	t_vect pt = add_vect(cy->center, multi_vect(normalize(cy->dir), t));
+	payload->world_norm = normalize(sub_vect(payload->world_pos, pt));
+
+	// payload->world_norm = normalize(vect(payload->world_pos.x - cy->center.x, payload->world_pos.y, payload->world_pos.z - cy->center.z));
+}
+
 void	closest_hit_sphere(t_ray ray, double hit_distance, t_sphere *sphere, t_payload *payload)
 {
 	t_vect origin = sub_vect(ray.orig, sphere->center);
@@ -51,6 +66,38 @@ void	closest_hit_plane(t_ray ray, double hit_distance, t_plane *plane, t_payload
 	// printf("HIT PLANE! ");
 	payload->world_norm = plane->dir;
 	payload->world_pos = add_vect(ray.orig ,multi_vect(ray.dir, hit_distance));
+}
+
+int	hit_cylinder(t_cylinder *cy, t_ray ray, double *closestT)
+{
+	t_vect	originxdir = cross_product(sub_vect(ray.orig, cy->center), cy->dir);
+    t_vect  rdxdir = cross_product(ray.dir, cy->dir);
+    float   a = dot_product(rdxdir, rdxdir);
+    float   b = 2 * dot_product(rdxdir, originxdir);
+    float   c = dot_product(originxdir, originxdir) - (cy->r * cy->r * dot_product(cy->dir, cy->dir));
+	
+	// check discriminant
+	double discriminant = b * b - 4.0 * a * c;
+	if (discriminant < 0)
+		return (0);
+	*closestT = (-b - sqrt(discriminant)) / (2.0 * a);
+	if (*closestT < 0)
+			*closestT = (-b + sqrt(discriminant)) / (2.0 * a);
+
+	// // complicated algorithm
+	// t_vect	origin = sub_vect(ray.orig, cy->center);
+	// t_vect world_pos = add_vect(origin, multi_vect(ray.dir, *closestT));
+	// double t = dot_product((sub_vect(world_pos, cy->center)), normalize(cy->dir));
+	// t_vect pt = add_vect(cy->center, multi_vect(normalize(cy->dir), t));
+	// if (t > cy->h / 2 || t < -cy->h / 2)
+	// {
+	// 	*closestT = DBL_MAX;
+	// 	return (0);
+	// }
+
+	// // cylinder caps
+	
+	return (1);
 }
 
 int	hit_plane(t_plane *p, t_ray ray, double *closestT)
@@ -95,6 +142,8 @@ t_payload	get_closest_hit(t_ray ray, double hit_distance, t_obj *obj)
 		closest_hit_sphere(ray, hit_distance, (t_sphere *) obj->content, &payload);
 	else if (obj->id == PLANE)
 		closest_hit_plane(ray, hit_distance, (t_plane *) obj->content, &payload);
+	else if (obj->id == CYLINDER)
+		closest_hit_cylinder(ray, hit_distance, (t_cylinder *) obj->content, &payload);
 	return (payload);
 }
 
@@ -104,6 +153,8 @@ double	get_closestT(t_obj *obj, t_ray ray, double *closestT)
 		return (hit_sphere((t_sphere *) obj->content, ray, closestT));
 	else if (obj->id == PLANE)
 		return (hit_plane((t_plane *) obj->content, ray, closestT));
+	else if (obj->id == CYLINDER)
+		return (hit_cylinder((t_cylinder *) obj->content, ray, closestT));
 	else
 		return (0);
 }
@@ -139,8 +190,10 @@ t_vect	get_object_color(t_obj *obj)
 {
 	if (obj->id == SPHERE)
 		return(((t_sphere*)obj->content)->color);
-	if (obj->id == PLANE)
+	else if (obj->id == PLANE)
 		return(((t_plane*)obj->content)->color);
+	else if (obj->id == CYLINDER)
+		return (((t_cylinder*)obj->content)->color);
 	return (color(0,0,0));
 }
 

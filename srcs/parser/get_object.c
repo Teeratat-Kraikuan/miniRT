@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 01:06:41 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/10 22:29:05 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:38:59 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	get_cylinder(char **data, t_minirt *minirt)
 	get_coordinate(ft_split(data[1], ','), &cylinder->center);
 	get_coordinate(ft_split(data[2], ','), &cylinder->dir);
 	get_double(data[3], &cylinder->d);
+	cylinder->r = cylinder->d / 2;
 	get_double(data[4], &cylinder->h);
+	cylinder->top = add_vect(cylinder->center ,multi_vect(normalize(cylinder->dir), cylinder->h / 2));
+	cylinder->bottom = sub_vect(cylinder->center, multi_vect(normalize(cylinder->dir), cylinder->h / 2));
 	get_color_input(ft_split(data[5], ','), &cylinder->color);
 	objs->id = CYLINDER;
 	objs->content = (void *) cylinder;
