@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:21:20 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 00:39:23 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:33:58 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 typedef struct s_camera
 {
 	t_vect			pos;
-	t_vect			forward;	// 3d normalized orientation vector. In range [-1,1] for each x,y,z axis
+	t_vect			forward;
 	t_vect			right;
 	t_vect			up;
-	double			fov;	// FOV : Horizontal field of view in degrees in range [0,180]
+	double			fov;
 	double			aspect_ratio;
+	int				bounces;
 	t_ray			*ray;
 }	t_camera;
 

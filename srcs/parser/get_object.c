@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 01:06:41 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/15 18:38:59 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/16 01:16:14 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,21 @@ void	get_plane(char **data, t_minirt *minirt)
 void	get_cylinder(char **data, t_minirt *minirt)
 {
 	t_obj		*objs;
-	t_cylinder	*cylinder;
+	t_cylinder	*cy;
 
 	objs = malloc(sizeof(t_obj));
-	cylinder = malloc(sizeof(t_cylinder));
-	get_coordinate(ft_split(data[1], ','), &cylinder->center);
-	get_coordinate(ft_split(data[2], ','), &cylinder->dir);
-	get_double(data[3], &cylinder->d);
-	cylinder->r = cylinder->d / 2;
-	get_double(data[4], &cylinder->h);
-	cylinder->top = add_vect(cylinder->center ,multi_vect(normalize(cylinder->dir), cylinder->h / 2));
-	cylinder->bottom = sub_vect(cylinder->center, multi_vect(normalize(cylinder->dir), cylinder->h / 2));
-	get_color_input(ft_split(data[5], ','), &cylinder->color);
+	cy = malloc(sizeof(t_cylinder));
+	get_coordinate(ft_split(data[1], ','), &cy->center);
+	get_coordinate(ft_split(data[2], ','), &cy->dir);
+	cy->dir = normalize(cy->dir);
+	get_double(data[3], &cy->d);
+	cy->r = cy->d / 2;
+	get_double(data[4], &cy->h);
+	cy->top = add_vect(cy->center ,multi_vect(cy->dir, cy->h / 2));
+	cy->bottom = sub_vect(cy->center, multi_vect(cy->dir, cy->h / 2));
+	get_color_input(ft_split(data[5], ','), &cy->color);
 	objs->id = CYLINDER;
-	objs->content = (void *) cylinder;
+	objs->content = (void *) cy;
 	objs->next = NULL;
 	lst_objs_addback(&minirt->scene->objs, objs);
 }
