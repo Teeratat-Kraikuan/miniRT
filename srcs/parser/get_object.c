@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 01:06:41 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/16 01:16:14 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:01:02 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "vector.h"
 
 void	get_sphere(char **data, t_minirt *minirt)
 {

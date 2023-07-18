@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:24:09 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/16 01:43:01 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:05:13 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int handle_keypress(int keycode, void *param)
 	t_minirt	*minirt;
 
 	minirt = (t_minirt*) param;
-	printf("keypresed -> %d\n", keycode);
+	// printf("keypresed -> %d\n", keycode);
 	if (keycode == LEFT_SQUARE_BRACKETS)
 		minirt->cam->fov -= 1;
 	else if (keycode == RIGHT_SQUARE_BRACKETS)
