@@ -6,7 +6,7 @@
 /*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:34:16 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/02 01:25:45 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/18 23:06:25 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	calculate_ray(t_camera *camera)
 			if (camera->forward.x == 0 && camera->forward.y == 1 && camera->forward.z == 0)
 				ray.dir = vect(xx, -z, yy);
 			ray.dir = add_vect( add_vect( multi_vect(camera->right, xx) , multi_vect(camera->up, yy)), multi_vect(camera->forward, z) );
+			// ray.dir = normalize(add_vect( add_vect( multi_vect(camera->right, xx) , multi_vect(camera->up, yy)), multi_vect(camera->forward, z) ));
 			// ray.dir = vect(xx, yy, -z);
 			
 			camera->ray[x + y * WIN_WIDTH] = ray;

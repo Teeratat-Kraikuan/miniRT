@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closest_hit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:29:02 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/18 16:04:10 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:23:37 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,21 @@ void	closest_hit_cy(t_ray ray, double hit_d, t_cylinder *cy, t_payload *load)
 	// t_vect	origin = ray.orig;
 	load->world_pos = add_vect(origin, multi_vect(ray.dir, hit_d));
 	// load->world_norm = multi_vect(ray.dir, -1);
+	double t = dot_product(load->world_pos, cy->dir);
 	load->world_pos = add_vect(load->world_pos, cy->center);
 
-	double t = dot_product((sub_vect(load->world_pos, cy->center)), cy->dir);
 	t_vect pt = add_vect(cy->center, multi_vect(cy->dir, t));
 	load->world_norm = normalize(sub_vect(load->world_pos, pt));
 
+	// float m = dot_product(ray.dir, multi_vect(cy->dir, hit_d)) + dot_product(origin, cy->dir);
+	// load->world_norm = normalize()
+
 	if (t >= cy->h / 2 || t <= -cy->h / 2)
 	{
-		hit_d = DBL_MAX;
-		load->world_norm = cy->dir;
+		if (t >= cy->h / 2)
+			load->world_norm = cy->dir;
+		else if (t <= -cy->h / 2)
+			load->world_norm = multi_vect(cy->dir, -1);
 	}
 
 	// load->world_norm = normalize(vect(load->world_pos.x - cy->center.x, load->world_pos.y, load->world_pos.z - cy->center.z));

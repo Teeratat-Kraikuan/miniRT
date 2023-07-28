@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   equation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 12:26:26 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/15 14:34:40 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/27 00:59:29 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ t_vect	new_ray_origin(t_payload *load)
 {
 	t_vect	new_norm;
 
-	new_norm = multi_vect(load->world_norm, 0.0001);
+	new_norm = multi_vect(load->world_norm, 0.001);
 	return (add_vect(load->world_pos, new_norm));
 }
