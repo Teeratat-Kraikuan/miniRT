@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closest_t.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:42:38 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/28 14:59:44 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:33:14 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,7 @@ int	hit_plane(t_plane *p, t_ray ray, double *closestT)
 	{
 		*closestT = dot_product(sub_vect(p->center, ray.orig), p->dir) / denom;
 		if (*closestT > EPSILON)
-		{
-			// t_vect point = add_vect(ray.orig, multi_vect(ray.dir, *closestT));
-			// t_vect v;
-			// v = sub_vect(point, p->center);
-			// double d2 = dot_product(v, v);
-			// if (sqrtf(d2) <= 5)
-			// 	return (1);
 			return (1);
-		}
 	}
 	return (0);
 }
@@ -52,54 +44,64 @@ int	hit_sphere(t_sphere *sphere, t_ray ray, double *closestT)
 		return (0);
 	*closestT = (-b - sqrt(discriminant)) / (2.0 * a);
 	if (*closestT < 0)
-			*closestT = (-b + sqrt(discriminant)) / (2.0 * a);
+		*closestT = (-b + sqrt(discriminant)) / (2.0 * a);
 	return (1);
+}
+
+int	cylinder_caps(t_cylinder *cy, t_ray ray, double *cT, double t)
+{
+	double	denom;
+	t_vect	p;
+	t_vect	v;
+	double	d2;
+
+	denom = dot_product(cy->dir, ray.dir);
+	if (fabs(denom) > EPSILON)
+	{
+		if (t >= cy->h / 2)
+			*cT = dot_product(sub_vect(cy->top, ray.orig), cy->dir) / denom;
+		else if (t <= -cy->h / 2)
+			*cT = dot_product(sub_vect(cy->bottom, ray.orig), cy->dir) / denom;
+		if (*cT > EPSILON)
+		{
+			p = add_vect(ray.orig, multi_vect(ray.dir, *cT));
+			if (t >= cy->h / 2)
+				v = sub_vect(p, cy->top);
+			else
+				v = sub_vect(p, cy->bottom);
+			d2 = dot_product(v, v);
+			if (sqrtf(d2) <= cy->r)
+				return (1);
+		}
+	}
+	return (0);
 }
 
 int	hit_cylinder(t_cylinder *cy, t_ray ray, double *closestT)
 {
-	t_vect	originxdir = cross_product(sub_vect(ray.orig, cy->center), cy->dir);
-    t_vect  rdxdir = cross_product(ray.dir, cy->dir);
-    float   a = dot_product(rdxdir, rdxdir);
-    float   b = 2 * dot_product(rdxdir, originxdir);
-    float   c = dot_product(originxdir, originxdir) - (cy->r * cy->r);
-	
-	// check discriminant
-	double discriminant = b * b - 4.0 * a * c;
+	t_vect	originxdir;
+	t_vect	rdxdir;
+	t_vect	v;
+	double	discriminant;
+	double	t;
+
+	originxdir = cross_product(sub_vect(ray.orig, cy->center), cy->dir);
+	rdxdir = cross_product(ray.dir, cy->dir);
+	v.x = dot_product(rdxdir, rdxdir);
+	v.y = 2 * dot_product(rdxdir, originxdir);
+	v.z = dot_product(originxdir, originxdir) - (cy->r * cy->r);
+	discriminant = v.y * v.y - 4.0 * v.x * v.z;
 	if (discriminant < 0)
 		return (0);
-	*closestT = (-b - sqrt(discriminant)) / (2.0 * a);
+	*closestT = (-v.y - sqrt(discriminant)) / (2.0 * v.x);
 	if (*closestT < 0)
-			*closestT = (-b + sqrt(discriminant)) / (2.0 * a);
-
-	// complicated algorithm
-	t_vect world_pos = add_vect(ray.orig, multi_vect(ray.dir, *closestT));
-	double t = dot_product((sub_vect(world_pos, cy->center)), normalize(cy->dir));
+		*closestT = (-v.y + sqrt(discriminant)) / (2.0 * v.x);
+	t = dot_product((sub_vect(add_vect(ray.orig, \
+			multi_vect(ray.dir, *closestT)), cy->center)), normalize(cy->dir));
 	if (t >= cy->h / 2 || t <= -cy->h / 2)
 	{
 		*closestT = DBL_MAX;
-		double	denom;
-		denom = dot_product(cy->dir, ray.dir);
-		if (fabs(denom) > EPSILON)
-		{
-			if (t >= cy->h / 2)
-				*closestT = dot_product(sub_vect(cy->top, ray.orig), cy->dir) / denom;
-			else if (t <= -cy->h / 2)
-				*closestT = dot_product(sub_vect(cy->bottom, ray.orig),cy->dir) / denom;
-			if (*closestT > EPSILON)
-			{
-				t_vect p = add_vect(ray.orig, multi_vect(ray.dir, *closestT));
-				t_vect v;
-				if (t >= cy->h / 2)
-					v = sub_vect(p, cy->top);
-				else
-					v = sub_vect(p, cy->bottom);
-				double d2 = dot_product(v, v);
-				if (sqrtf(d2) <= cy->r)
-					return (1);
-			}
-		}
-		return (0);
+		return (cylinder_caps(cy, ray, closestT, t));
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: csantivi <csantivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:48:34 by tkraikua          #+#    #+#             */
-/*   Updated: 2023/07/15 18:07:51 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:16:25 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_pixel
 
 void		draw(t_minirt *minirt);
 
-t_payload	miss(t_ray ray);
+t_payload	miss(void);
 t_payload	get_closest_hit(t_ray ray, double hit_d, t_obj *obj);
 void		closest_hit_pl(t_ray ray, double hit_d, t_plane *p, t_payload *l);
 void		closest_hit_sp(t_ray ray, double hit_d, t_sphere *s, t_payload *l);
@@ -45,8 +45,10 @@ t_vect		reflect(t_vect incident, t_vect norm);
 t_vect		new_ray_origin(t_payload *load);
 
 t_vect		sky_color(t_vect c, t_scene *scene);
-t_vect		ambient_light(t_pixel *p, t_scene *s, t_payload *load);
+t_vect		ambient_light(t_pixel *p, t_scene *s, t_vect color);
+t_vect		add_ambient(t_vect base, t_al *al, int i);
 t_vect		point_light(t_pixel *p, t_scene *s, t_payload *load, t_ray *ray);
+t_vect		lighting(t_pixel *p, t_scene *s, t_payload *load, t_ray *ray);
 
 t_vect		get_object_color(t_obj *obj);
 int			obj_block(t_ray ray, t_scene *scene, t_light *light);
