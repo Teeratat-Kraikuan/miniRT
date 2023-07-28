@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closest_hit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkraikua <tkraikua@student.42.th>          +#+  +:+       +#+        */
+/*   By: tkraikua <tkraikua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 11:29:02 by csantivi          #+#    #+#             */
-/*   Updated: 2023/07/27 01:23:37 by tkraikua         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:54:39 by tkraikua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	closest_hit_cy(t_ray ray, double hit_d, t_cylinder *cy, t_payload *load)
 	// float m = dot_product(ray.dir, multi_vect(cy->dir, hit_d)) + dot_product(origin, cy->dir);
 	// load->world_norm = normalize()
 
-	if (t >= cy->h / 2 || t <= -cy->h / 2)
+	if (t >= cy->h / 2 - EPSILON || t <= -cy->h / 2 + EPSILON)
 	{
-		if (t >= cy->h / 2)
+		if (t >= cy->h / 2 - EPSILON)
 			load->world_norm = cy->dir;
-		else if (t <= -cy->h / 2)
+		else if (t <= -cy->h / 2 + EPSILON)
 			load->world_norm = multi_vect(cy->dir, -1);
 	}
 
